@@ -107,6 +107,17 @@ call_user_func(
             ];
         }
 
+        if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['t3api_serializer']) || !is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['t3api_serializer'])) {
+            $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['t3api_serializer'] = [
+                'frontend' => \TYPO3\CMS\Core\Cache\Frontend\PhpFrontend::class,
+                'backend' => \TYPO3\CMS\Core\Cache\Backend\SimpleFileBackend::class,
+                'options' => [
+                    'defaultLifetime' => 0,
+                ],
+                'groups' => ['system'],
+            ];
+        }
+
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3api']['serializer']['exclusionForExceptionsInAccessorStrategyGetValue'] = [
             TYPO3\CMS\Core\Resource\FileReference::class => [
                 \TYPO3\CMS\Core\Resource\Exception\FileDoesNotExistException::class,
